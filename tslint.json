@@ -1,0 +1,17 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:latest",
+    "tslint-react"
+  ],
+  "rules": {
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "one-variable-per-declaration": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**/*.ts"
+    ]
+  }
+}

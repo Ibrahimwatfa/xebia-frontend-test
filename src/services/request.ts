@@ -1,17 +1,40 @@
-import Axios, { AxiosResponse, Method } from 'axios';
+import Axios from 'axios';
 
-export interface BooksResponse extends AxiosResponse {
+import { Book } from '../components/molecules/Book';
 
+export interface Offer {
+  type: "percentage" | "minus" | "slice";
+  value: number;
+  sliceValue: number;
+}
+interface OffersResponse {
+  offers: Offer[];
 }
 
-export default async (): Promise<BooksResponse> => {
-    try {
-        const res = await Axios({
-        });
-    
-        return res;
-      } catch (error) {
-        console.error('Request Error', error);
-        throw error;
-      }
-} 
+const baseUrl = "http://henri-potier.xebia.fr/books";
+
+export const getBooks = async (): Promise<Book[]> => {
+  try {
+    const res = await Axios({
+      url: baseUrl,
+      method: "GET"
+    });
+
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getBookOffers = async (booksIsbns: string[]): Promise<OffersResponse> => {
+  try {
+    const res = await Axios({
+      url: baseUrl + "/" + booksIsbns.toString() + "/commercialOffers",
+      method: "GET"
+    });
+
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+}

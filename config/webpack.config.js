@@ -483,6 +483,19 @@ module.exports = function(webpackEnv) {
                 'sass-loader'
               ),
             },
+            // React svg loader
+            {
+              test: /\.svg$/,
+              issuer: /\.(js|jsx|ts|tsx)$/, // i don't know why but only on client side, otherwise svg break on ssr
+              use: [
+                {
+                  loader: require.resolve('babel-loader')
+                },
+                {
+                  loader: require.resolve('react-svg-loader')
+                }
+              ]
+            },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.
